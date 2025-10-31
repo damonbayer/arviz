@@ -14,6 +14,7 @@ from html import escape
 from typing import (
     TYPE_CHECKING,
     Any,
+    Callable,
     Iterable,
     Iterator,
     List,
@@ -1119,32 +1120,32 @@ class InferenceData(Mapping[str, xr.Dataset]):
     @overload
     def stack(
         self: InferenceDataT,
-        dimensions=None,
-        groups=None,
-        filter_groups=None,
+        dimensions: Optional[dict] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
         *,
         inplace: "Literal[True]",
-        **kwargs,
+        **kwargs: Any,
     ) -> None: ...
 
     @overload
     def stack(
         self: InferenceDataT,
-        dimensions=None,
-        groups=None,
-        filter_groups=None,
+        dimensions: Optional[dict] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
         *,
         inplace: "Literal[False]" = False,
-        **kwargs,
+        **kwargs: Any,
     ) -> InferenceDataT: ...
 
     def stack(
         self,
-        dimensions=None,
-        groups=None,
-        filter_groups=None,
-        inplace=False,
-        **kwargs,
+        dimensions: Optional[dict] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
+        inplace: bool = False,
+        **kwargs: Any,
     ):
         """Perform an xarray stacking on all groups.
 
@@ -1255,9 +1256,9 @@ class InferenceData(Mapping[str, xr.Dataset]):
     @overload
     def unstack(
         self: InferenceDataT,
-        dim=None,
-        groups=None,
-        filter_groups=None,
+        dim: Optional[Union[str, List[str]]] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
         *,
         inplace: "Literal[True]",
     ) -> None: ...
@@ -1265,14 +1266,20 @@ class InferenceData(Mapping[str, xr.Dataset]):
     @overload
     def unstack(
         self: InferenceDataT,
-        dim=None,
-        groups=None,
-        filter_groups=None,
+        dim: Optional[Union[str, List[str]]] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
         *,
         inplace: "Literal[False]" = False,
     ) -> InferenceDataT: ...
 
-    def unstack(self, dim=None, groups=None, filter_groups=None, inplace=False):
+    def unstack(
+        self,
+        dim: Optional[Union[str, List[str]]] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
+        inplace: bool = False,
+    ):
         """Perform an xarray unstacking on all groups.
 
         Unstack existing dimensions corresponding to MultiIndexes into multiple new dimensions.
@@ -1360,9 +1367,9 @@ class InferenceData(Mapping[str, xr.Dataset]):
     @overload
     def rename(
         self: InferenceDataT,
-        name_dict=None,
-        groups=None,
-        filter_groups=None,
+        name_dict: Optional[dict] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
         *,
         inplace: "Literal[True]",
     ) -> None: ...
@@ -1370,14 +1377,20 @@ class InferenceData(Mapping[str, xr.Dataset]):
     @overload
     def rename(
         self: InferenceDataT,
-        name_dict=None,
-        groups=None,
-        filter_groups=None,
+        name_dict: Optional[dict] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
         *,
         inplace: "Literal[False]" = False,
     ) -> InferenceDataT: ...
 
-    def rename(self, name_dict=None, groups=None, filter_groups=None, inplace=False):
+    def rename(
+        self,
+        name_dict: Optional[dict] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
+        inplace: bool = False,
+    ):
         """Perform xarray renaming of variable and dimensions on all groups.
 
         Loops groups to perform Dataset.rename(name_dict)
@@ -1454,9 +1467,9 @@ class InferenceData(Mapping[str, xr.Dataset]):
     @overload
     def rename_vars(
         self: InferenceDataT,
-        name_dict=None,
-        groups=None,
-        filter_groups=None,
+        name_dict: Optional[dict] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
         *,
         inplace: "Literal[True]",
     ) -> None: ...
@@ -1464,14 +1477,20 @@ class InferenceData(Mapping[str, xr.Dataset]):
     @overload
     def rename_vars(
         self: InferenceDataT,
-        name_dict=None,
-        groups=None,
-        filter_groups=None,
+        name_dict: Optional[dict] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
         *,
         inplace: "Literal[False]" = False,
     ) -> InferenceDataT: ...
 
-    def rename_vars(self, name_dict=None, groups=None, filter_groups=None, inplace=False):
+    def rename_vars(
+        self,
+        name_dict: Optional[dict] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
+        inplace: bool = False,
+    ):
         """Perform xarray renaming of variable or coordinate names on all groups.
 
         Loops groups to perform Dataset.rename_vars(name_dict)
@@ -1547,9 +1566,9 @@ class InferenceData(Mapping[str, xr.Dataset]):
     @overload
     def rename_dims(
         self: InferenceDataT,
-        name_dict=None,
-        groups=None,
-        filter_groups=None,
+        name_dict: Optional[dict] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
         *,
         inplace: "Literal[True]",
     ) -> None: ...
@@ -1557,14 +1576,20 @@ class InferenceData(Mapping[str, xr.Dataset]):
     @overload
     def rename_dims(
         self: InferenceDataT,
-        name_dict=None,
-        groups=None,
-        filter_groups=None,
+        name_dict: Optional[dict] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
         *,
         inplace: "Literal[False]" = False,
     ) -> InferenceDataT: ...
 
-    def rename_dims(self, name_dict=None, groups=None, filter_groups=None, inplace=False):
+    def rename_dims(
+        self,
+        name_dict: Optional[dict] = None,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
+        inplace: bool = False,
+    ):
         """Perform xarray renaming of dimensions on all groups.
 
         Loops groups to perform Dataset.rename_dims(name_dict)
@@ -1946,28 +1971,36 @@ class InferenceData(Mapping[str, xr.Dataset]):
     @overload
     def map(
         self: InferenceDataT,
-        fun,
-        groups=None,
-        filter_groups=None,
+        fun: Callable,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
         *,
         inplace: "Literal[True]",
-        args=None,
-        **kwargs,
+        args: Optional[List] = None,
+        **kwargs: Any,
     ) -> None: ...
 
     @overload
     def map(
         self: InferenceDataT,
-        fun,
-        groups=None,
-        filter_groups=None,
+        fun: Callable,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
         *,
         inplace: "Literal[False]" = False,
-        args=None,
-        **kwargs,
+        args: Optional[List] = None,
+        **kwargs: Any,
     ) -> InferenceDataT: ...
 
-    def map(self, fun, groups=None, filter_groups=None, inplace=False, args=None, **kwargs):
+    def map(
+        self,
+        fun: Callable,
+        groups: Optional[Union[str, List[str]]] = None,
+        filter_groups: Optional["Literal['like', 'regex']"] = None,
+        inplace: bool = False,
+        args: Optional[List] = None,
+        **kwargs: Any,
+    ):
         """Apply a function to multiple groups.
 
         Applies ``fun`` groupwise to the selected ``InferenceData`` groups and overwrites the
