@@ -1118,7 +1118,7 @@ class InferenceData(Mapping[str, xr.Dataset]):
 
     @overload
     def stack(
-        self,
+        self: InferenceDataT,
         dimensions=None,
         groups=None,
         filter_groups=None,
@@ -1129,14 +1129,14 @@ class InferenceData(Mapping[str, xr.Dataset]):
 
     @overload
     def stack(
-        self,
+        self: InferenceDataT,
         dimensions=None,
         groups=None,
         filter_groups=None,
         *,
         inplace: "Literal[False]" = False,
         **kwargs,
-    ) -> "InferenceData": ...
+    ) -> InferenceDataT: ...
 
     def stack(
         self,
@@ -1254,7 +1254,7 @@ class InferenceData(Mapping[str, xr.Dataset]):
 
     @overload
     def unstack(
-        self,
+        self: InferenceDataT,
         dim=None,
         groups=None,
         filter_groups=None,
@@ -1264,13 +1264,13 @@ class InferenceData(Mapping[str, xr.Dataset]):
 
     @overload
     def unstack(
-        self,
+        self: InferenceDataT,
         dim=None,
         groups=None,
         filter_groups=None,
         *,
         inplace: "Literal[False]" = False,
-    ) -> "InferenceData": ...
+    ) -> InferenceDataT: ...
 
     def unstack(self, dim=None, groups=None, filter_groups=None, inplace=False):
         """Perform an xarray unstacking on all groups.
@@ -1359,7 +1359,7 @@ class InferenceData(Mapping[str, xr.Dataset]):
 
     @overload
     def rename(
-        self,
+        self: InferenceDataT,
         name_dict=None,
         groups=None,
         filter_groups=None,
@@ -1369,13 +1369,13 @@ class InferenceData(Mapping[str, xr.Dataset]):
 
     @overload
     def rename(
-        self,
+        self: InferenceDataT,
         name_dict=None,
         groups=None,
         filter_groups=None,
         *,
         inplace: "Literal[False]" = False,
-    ) -> "InferenceData": ...
+    ) -> InferenceDataT: ...
 
     def rename(self, name_dict=None, groups=None, filter_groups=None, inplace=False):
         """Perform xarray renaming of variable and dimensions on all groups.
@@ -1453,7 +1453,7 @@ class InferenceData(Mapping[str, xr.Dataset]):
 
     @overload
     def rename_vars(
-        self,
+        self: InferenceDataT,
         name_dict=None,
         groups=None,
         filter_groups=None,
@@ -1463,13 +1463,13 @@ class InferenceData(Mapping[str, xr.Dataset]):
 
     @overload
     def rename_vars(
-        self,
+        self: InferenceDataT,
         name_dict=None,
         groups=None,
         filter_groups=None,
         *,
         inplace: "Literal[False]" = False,
-    ) -> "InferenceData": ...
+    ) -> InferenceDataT: ...
 
     def rename_vars(self, name_dict=None, groups=None, filter_groups=None, inplace=False):
         """Perform xarray renaming of variable or coordinate names on all groups.
@@ -1546,7 +1546,7 @@ class InferenceData(Mapping[str, xr.Dataset]):
 
     @overload
     def rename_dims(
-        self,
+        self: InferenceDataT,
         name_dict=None,
         groups=None,
         filter_groups=None,
@@ -1556,13 +1556,13 @@ class InferenceData(Mapping[str, xr.Dataset]):
 
     @overload
     def rename_dims(
-        self,
+        self: InferenceDataT,
         name_dict=None,
         groups=None,
         filter_groups=None,
         *,
         inplace: "Literal[False]" = False,
-    ) -> "InferenceData": ...
+    ) -> InferenceDataT: ...
 
     def rename_dims(self, name_dict=None, groups=None, filter_groups=None, inplace=False):
         """Perform xarray renaming of dimensions on all groups.
@@ -1945,7 +1945,7 @@ class InferenceData(Mapping[str, xr.Dataset]):
 
     @overload
     def map(
-        self,
+        self: InferenceDataT,
         fun,
         groups=None,
         filter_groups=None,
@@ -1957,7 +1957,7 @@ class InferenceData(Mapping[str, xr.Dataset]):
 
     @overload
     def map(
-        self,
+        self: InferenceDataT,
         fun,
         groups=None,
         filter_groups=None,
@@ -1965,7 +1965,7 @@ class InferenceData(Mapping[str, xr.Dataset]):
         inplace: "Literal[False]" = False,
         args=None,
         **kwargs,
-    ) -> "InferenceData": ...
+    ) -> InferenceDataT: ...
 
     def map(self, fun, groups=None, filter_groups=None, inplace=False, args=None, **kwargs):
         """Apply a function to multiple groups.
